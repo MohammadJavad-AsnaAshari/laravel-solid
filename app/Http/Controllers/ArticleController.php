@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Resources\ArticleResource;
+use App\Models\Article;
 use App\Services\ArticleService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,9 +37,13 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Article $article)
     {
-        //
+        return response()->json(data: [
+            'success' => true,
+            'message' => 'Article show successfully!',
+            'data' => new ArticleResource($article)
+        ], status: Response::HTTP_OK);
     }
 
     /**

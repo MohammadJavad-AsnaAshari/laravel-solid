@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Article;
+use App\Notifications\ArticleCreatedNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\StoreArticleRequest;
@@ -13,8 +14,10 @@ class ArticleService
     {
         $article = Article::query()
             ->create($request->validated());
+        $user = $article->user;
 
-        // sending email notifications
+        $user->notify(new ArticleCreatedNotification($article));
+//        Notification::send($user, new ArticleCreatedNotification($article));
         // do something!
         // ...
 
