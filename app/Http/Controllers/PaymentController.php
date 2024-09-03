@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Logger;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
@@ -12,8 +13,9 @@ use Illuminate\Http\Response;
 
 class PaymentController extends Controller
 {
+    // dependency injection
     public function __construct(
-        private PaymentService $paymentService
+        private PaymentService $paymentService, private Logger $logger
     )
     {
     }
@@ -65,5 +67,10 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         //
+    }
+
+    public function log()
+    {
+        return response()->json([$this->logger->log('Log message!')]);
     }
 }

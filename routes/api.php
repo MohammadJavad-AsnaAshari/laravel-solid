@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::name('api.')->group(function () {
     Route::apiResource('article', ArticleController::class)->only(['store', 'show']);
     Route::apiResource('payment', PaymentController::class)->only(['store']);
+    Route::get('payment/log', [PaymentController::class, 'log']);
 });
