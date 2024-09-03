@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::name('api.')->group(function () {
     Route::apiResource('article', ArticleController::class)->only(['store', 'show']);
+    Route::apiResource('payment', PaymentController::class)->only(['store']);
 });
